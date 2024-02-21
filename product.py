@@ -4,7 +4,10 @@ class Product:
         self._price = price
         self._quantity = quantity
 
-    # Геттер и сеттер для цены товара
+    @property
+    def name(self):
+        return self._name
+
     @property
     def price(self):
         return self._price
@@ -12,10 +15,9 @@ class Product:
     @price.setter
     def price(self, value):
         if value < 0:
-            raise ValueError("Price must be non-negative")
+            raise ValueError("Цена должна быть неотрицательной")
         self._price = value
 
-    # Геттер и сеттер для количества товара
     @property
     def quantity(self):
         return self._quantity
@@ -23,5 +25,9 @@ class Product:
     @quantity.setter
     def quantity(self, value):
         if value < 0:
-            raise ValueError("Quantity must be non-negative")
+            raise ValueError("Количество должно быть неотрицательным")
         self._quantity = value
+
+    @classmethod
+    def create_product(cls, name, price, quantity):
+        return cls(name, price, quantity)
