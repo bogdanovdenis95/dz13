@@ -7,9 +7,8 @@ class Category:
         self.products = []
 
     def add_product(self, product):
-        if isinstance(product, Product):
-            self.products.append(product)
-        else:
-            raise TypeError("Only instances of Product class can be added to a category")
+        if not isinstance(product, Product):
+            raise TypeError("Only instances of Product class can be added to the category.")
+        self.products.append(product)
     def __str__(self):
         return f"{self.name}, количество продуктов: {len(self.products)} шт."
