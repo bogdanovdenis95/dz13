@@ -8,14 +8,18 @@ class Product:
         return f"{self.name}, цена руб. {self.price}. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        if isinstance(other, Product):
-            total_price_self = self.price * self.quantity
-            total_price_other = other.price * other.quantity
-            total_quantity = self.quantity + other.quantity
-            average_price = (total_price_self + total_price_other) / total_quantity
-            return Product(f"Mixed {self.name} and {other.name}", average_price, total_quantity)
-        else:
-            raise TypeError("Unsupported operand type(s) for +")
+        if not isinstance(other, Product):
+            raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
+                type(self).__name__, type(other).__name__))
+
+        if type(self) != type(other):
+            raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
+                type(self).__name__, type(other).__name__))
+
+        total_quantity = self.quantity + other.quantity
+        total_price = (self.price * self.quantity + other.price * other.quantity) / total_quantity
+
+        return Product("Mixed {} and {}".format(self.name, other.name), total_price, total_quantity)
 
 from product import Product
 
