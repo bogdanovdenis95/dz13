@@ -12,16 +12,10 @@ class Product:
             raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
                 type(self).__name__, type(other).__name__))
 
-        if type(self) != type(other):
-            raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
-                type(self).__name__, type(other).__name__))
-
         total_quantity = self.quantity + other.quantity
         total_price = (self.price * self.quantity + other.price * other.quantity) / total_quantity
 
-        return Product("Mixed {} and {}".format(self.name, other.name), total_price, total_quantity)
-
-from product import Product
+        return total_price
 
 class Smartphone(Product):
     def __init__(self, name, price, quantity, performance, model, memory, color):
