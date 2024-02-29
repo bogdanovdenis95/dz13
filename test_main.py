@@ -16,10 +16,12 @@ class TestProduct(unittest.TestCase):
     def test_product_add(self):
         laptop1 = Product("Ноутбук", 1500.0, 10)
         laptop2 = Product("Ноутбук", 1500.0, 5)
-        result_product = laptop1 + laptop2
-        self.assertEqual(result_product.name, "Mixed Ноутбук and Ноутбук")
-        self.assertAlmostEqual(result_product.price, (1500.0 * 10 + 1500.0 * 5) / 15)
-        self.assertEqual(result_product.quantity, 15)
+        result_price = laptop1 + laptop2
+        self.assertIsInstance(result_price, float)
+        # Проверяем, что результат соответствует ожидаемому значению
+        expected_price = (1500.0 * 10 + 1500.0 * 5) / (10 + 5)
+        self.assertAlmostEqual(result_price, expected_price)
+
 
 class TestCategory(unittest.TestCase):
     def test_category_initialization(self):
