@@ -12,8 +12,11 @@ class Product:
             raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
                 type(self).__name__, type(other).__name__))
 
-        total_quantity = self.quantity + other.quantity
-        total_price = (self.price * self.quantity + other.price * other.quantity) / total_quantity
+        if type(self) != type(other):
+            raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
+                type(self).__name__, type(other).__name__))
+
+        total_price = self.price + other.price
 
         return total_price
 
