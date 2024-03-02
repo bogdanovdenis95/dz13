@@ -8,17 +8,17 @@ class Product:
         return f"{self.name}, цена руб. {self.price}. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        if not isinstance(other, Product):
+        if not isinstance(other, type(self)):
             raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
                 type(self).__name__, type(other).__name__))
 
         if type(self) != type(other):
-            raise TypeError("Unsupported operand type(s) for +: '{}' and '{}'".format(
-                type(self).__name__, type(other).__name__))
+            raise TypeError("Cannot add instances of different types")
 
-        total_price = self.price + other.price
+        total_quantity = self.quantity + other.quantity
+        total_price = self.price * self.quantity + other.price * other.quantity
 
-        return total_price
+        return Product("Mixed {} and {}".format(self.name, other.name), total_price, total_quantity)
 
 class Smartphone(Product):
     def __init__(self, name, price, quantity, performance, model, memory, color):
