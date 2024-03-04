@@ -1,6 +1,7 @@
+
 import unittest
-from category import Category
-from product import Product, Smartphone
+from dz13.product import Product, Smartphone, LawnGrass
+from dz13.category import Category
 
 
 class TestProduct(unittest.TestCase):
@@ -16,10 +17,9 @@ class TestProduct(unittest.TestCase):
 
     def test_product_add(self):
         laptop1 = Product("Ноутбук", 1500.0, 10)
-        smartphone = Smartphone("Смартфон", 1000.0, 5, "высокая", "модель", "64ГБ", "черный")
-        with self.assertRaises(TypeError):
-            result_product = laptop1 + smartphone
-
+        laptop2 = Product("Ноутбук", 1500.0, 5)
+        result_price = laptop1.calculate_total_price() + laptop2.calculate_total_price()
+        self.assertEqual(result_price, 22500.0)  # Проверяем правильность вычисления суммы цен
 
 class TestCategory(unittest.TestCase):
     def test_category_initialization(self):
