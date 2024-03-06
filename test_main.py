@@ -32,5 +32,25 @@ class TestCategory(unittest.TestCase):
         electronics_category.add_product(laptop)
         self.assertIn(laptop, electronics_category.products)
 
+class TestSmartphone(unittest.TestCase):
+    def test_create_product(self):
+        smartphone = Smartphone("Смартфон", "Мобильный телефон", 1000.0, 1, "High", "Model X", "64GB", "Black")
+        self.assertTrue(callable(getattr(smartphone, 'create_product', None)), "Method create_product not implemented")
+
+    def test_repr(self):
+        smartphone = Smartphone("Смартфон", "Мобильный телефон", 1000.0, 1, "High", "Model X", "64GB", "Black")
+        expected_repr = "Smartphone(name=Смартфон, description=Мобильный телефон, price=1000.0, quantity=1, performance=High, model=Model X, memory=64GB, color=Black)"
+        self.assertEqual(repr(smartphone), expected_repr)
+
+class TestLawnGrass(unittest.TestCase):
+    def test_create_product(self):
+        lawn_grass = LawnGrass("Трава газонная", "Газонное растение", 10.0, 10, "USA", "30 days", "Green")
+        self.assertTrue(callable(getattr(lawn_grass, 'create_product', None)), "Method create_product not implemented")
+
+    def test_repr(self):
+        lawn_grass = LawnGrass("Трава газонная", "Газонное растение", 10.0, 10, "USA", "30 days", "Green")
+        expected_repr = "LawnGrass(name=Трава газонная, description=Газонное растение, price=10.0, quantity=10, country_of_origin=USA, germination_period=30 days, color=Green)"
+        self.assertEqual(repr(lawn_grass), expected_repr)
+
 if __name__ == '__main__':
     unittest.main()
