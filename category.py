@@ -1,4 +1,4 @@
-from product import AbstractProduct
+from product import Product
 
 class Category:
     def __init__(self, name, description):
@@ -7,9 +7,12 @@ class Category:
         self.products = []
 
     def add_product(self, product):
-        if not isinstance(product, AbstractProduct):
-            raise TypeError("Only instances of AbstractProduct class can be added to the category.")
+        if not isinstance(product, Product):
+            raise TypeError("Only instances of Product class can be added to the category.")
         self.products.append(product)
+
+    def create_product(self, name, description, price, quantity):
+        return Product(name, description, price, quantity)
 
     def __str__(self):
         return f"{self.name}, количество продуктов: {len(self.products)} шт."
