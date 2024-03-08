@@ -1,18 +1,19 @@
 from abc import ABC, abstractmethod
 
-class Product(ABC):
-    def __init__(self, name, price, quantity):
+class AbstractProduct(ABC):
+    @abstractmethod
+    def create_product(self, name, description, price, quantity):
+        pass
+
+class Product(AbstractProduct):
+    def __init__(self, name, description, price, quantity):
         self.name = name
+        self.description = description
         self.price = price
         self.quantity = quantity
 
-    @abstractmethod
-    def __str__(self):
-        pass
-
-    @abstractmethod
-    def calculate_total_price(self):
-        pass
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name='{self.name}', description='{self.description}', price={self.price}, quantity={self.quantity})"
 
 
 class Smartphone(Product):
@@ -29,6 +30,10 @@ class Smartphone(Product):
     def calculate_total_price(self):
         return self.price * self.quantity
 
+    def create_product(self, name, description, price, quantity):
+        return self.__class__(name, description, price, quantity, self.performance, self.model, self.memory, self.color)
+
+
 class LawnGrass(Product):
     def __init__(self, name, description, price, quantity, country_of_origin, germination_period, color):
         super().__init__(name, description, price, quantity)
@@ -41,3 +46,6 @@ class LawnGrass(Product):
 
     def calculate_total_price(self):
         return self.price * self.quantity
+
+    def create_product(self, name, description, price, quantity):
+        return self.__class__(name, description, price, quantity, self.country_of_origin, self.germination_period, self.color)
