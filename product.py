@@ -1,24 +1,31 @@
 from abc import ABC, abstractmethod
 
-class AbstractProduct(ABC):
-    @abstractmethod
-    def create_product(self, name, description, price, quantity):
-        pass
-
-class Product(AbstractProduct):
-    def __init__(self, name, description, price, quantity):
+class Product(ABC):
+    def __init__(self, name, price, quantity):
         self.name = name
-        self.description = description
         self.price = price
         self.quantity = quantity
 
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def calculate_total_price(self):
+        pass
+
+    @classmethod
+    def create_product(cls, name, description, price, quantity):
+        return cls(name, description, price, quantity)
+
+class LoggingMixin:
     def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}', description='{self.description}', price={self.price}, quantity={self.quantity})"
+        return f"Создан объект: {self.__class__.__name__}"
 
-
-class Smartphone(Product):
+class Smartphone(Product, LoggingMixin):
     def __init__(self, name, description, price, quantity, performance, model, memory, color):
-        super().__init__(name, description, price, quantity)
+        super().__init__(name, price, quantity)
+        self.description = description
         self.performance = performance
         self.model = model
         self.memory = memory
@@ -30,13 +37,10 @@ class Smartphone(Product):
     def calculate_total_price(self):
         return self.price * self.quantity
 
-    def create_product(self, name, description, price, quantity):
-        return self.__class__(name, description, price, quantity, self.performance, self.model, self.memory, self.color)
-
-
-class LawnGrass(Product):
+class LawnGrass(Product, LoggingMixin):
     def __init__(self, name, description, price, quantity, country_of_origin, germination_period, color):
-        super().__init__(name, description, price, quantity)
+        super().__init__(name, price, quantity)
+        self.description = description
         self.country_of_origin = country_of_origin
         self.germination_period = germination_period
         self.color = color
@@ -47,5 +51,3 @@ class LawnGrass(Product):
     def calculate_total_price(self):
         return self.price * self.quantity
 
-    def create_product(self, name, description, price, quantity):
-        return self.__class__(name, description, price, quantity, self.country_of_origin, self.germination_period, self.color)
