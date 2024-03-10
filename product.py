@@ -34,8 +34,13 @@ class Product(AbstractProduct):
 
 
 class LoggingMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(f"Создан объект: {self.__repr__()}")
+
     def __repr__(self):
-        return f"Создан объект: {self.__class__.__name__}"
+        fields = ', '.join([f"{key}={value}" for key, value in self.__dict__.items()])
+        return f"{self.__class__.__name__}({fields})"
 
 
 class Smartphone(Product, LoggingMixin):
@@ -53,10 +58,10 @@ class Smartphone(Product, LoggingMixin):
     def calculate_total_price(self):
         return self.price * self.quantity
 
-# В классе LawnGrass
+
 class LawnGrass(Product, LoggingMixin):
     def __init__(self, name, description, price, quantity, country_of_origin, germination_period, color):
-        super().__init__(name, description, price, quantity)  # Добавлен аргумент description
+        super().__init__(name, description, price, quantity)
         self.country_of_origin = country_of_origin
         self.germination_period = germination_period
         self.color = color
