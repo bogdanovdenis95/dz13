@@ -65,7 +65,7 @@ class LawnGrass(Product, LoggingMixin):
         self.country_of_origin = country_of_origin
         self.germination_period = germination_period
         self.color = color
-
+        print(f"Создан объект: {self.__repr__()}")
 
     def __str__(self):
         return f"{self.name}, цена: {self.price}, описание: {self.description}"
@@ -73,3 +73,9 @@ class LawnGrass(Product, LoggingMixin):
     def calculate_total_price(self):
         return self.price * self.quantity
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name='{self.name}', description='{self.description}', price={self.price}, quantity={self.quantity}, country_of_origin='{self.country_of_origin}', germination_period='{self.germination_period}', color='{self.color}')"
+
+    @classmethod
+    def create_product(cls, name, description, price, quantity, country_of_origin, germination_period, color):
+        return cls(name, description, price, quantity, country_of_origin, germination_period, color)
