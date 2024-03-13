@@ -1,8 +1,14 @@
 from abc import ABC, abstractmethod
 
 class LoggingMixin:
+    def __init__(self):
+        print(repr(self))
+
     def __repr__(self):
-        return f"Создан объект: {self.__class__.__name__}"
+        attributes = ', '.join([f"{key}={value}" for key, value in self.__dict__.items()])
+        return f"{self.__class__.__name__}({attributes})"
+
+
 
 class AbstractProduct(ABC):
     @abstractmethod
@@ -18,9 +24,7 @@ class AbstractProduct(ABC):
     def create_product(cls, name, description, price, quantity):
         pass
 
-class LoggingMixin:
-    def __repr__(self):
-        return f"Создан объект: {self.__class__.__name__}"
+
 
 
 class Product(AbstractProduct, LoggingMixin):
@@ -52,6 +56,7 @@ class Smartphone(Product, LoggingMixin):
         self.color = color
         print(f"Создан объект: {self.__repr__()}")
 
+
     def __str__(self):
         return f"{self.name}, цена: {self.price}, описание: {self.description}"
 
@@ -64,7 +69,6 @@ class Smartphone(Product, LoggingMixin):
     @classmethod
     def create_product(cls, name, description, price, quantity, performance, model, memory, color):
         return cls(name, description, price, quantity, performance, model, memory, color)
-
 
 
 class LawnGrass(Product, LoggingMixin):
