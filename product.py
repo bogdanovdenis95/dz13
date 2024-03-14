@@ -29,7 +29,6 @@ class AbstractProduct(ABC):
 
 class Product(AbstractProduct, LoggingMixin):
     def __init__(self, name, description, price, quantity):
-        super().__init__()
         self.name = name
         self.description = description
         self.price = price
@@ -49,13 +48,11 @@ class Product(AbstractProduct, LoggingMixin):
 
 class Smartphone(Product, LoggingMixin):
     def __init__(self, name, description, price, quantity, performance, model, memory, color):
-        super().__init__(name, description, price, quantity)
         self.performance = performance
         self.model = model
         self.memory = memory
         self.color = color
-        print(f"Создан объект: {self.__repr__()}")
-
+        super().__init__(name, description, price, quantity)
 
     def __str__(self):
         return f"{self.name}, цена: {self.price}, описание: {self.description}"
@@ -73,10 +70,10 @@ class Smartphone(Product, LoggingMixin):
 
 class LawnGrass(Product, LoggingMixin):
     def __init__(self, name, description, price, quantity, country_of_origin, germination_period, color):
-        super().__init__(name, description, price, quantity)
         self.country_of_origin = country_of_origin
         self.germination_period = germination_period
         self.color = color
+        super().__init__(name, description, price, quantity)
         print(f"Создан объект: {self.__repr__()}")
 
     def __str__(self):
