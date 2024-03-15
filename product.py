@@ -74,7 +74,7 @@ class LawnGrass(Product, LoggingMixin):
         self.germination_period = germination_period
         self.color = color
         super().__init__(name, description, price, quantity)
-        print(f"Создан объект: {self.__repr__()}")
+
 
     def __str__(self):
         return f"{self.name}, цена: {self.price}, описание: {self.description}"
